@@ -103,7 +103,6 @@ function buildCharts(sample) {
     
     // Deliverable 2: 1. Create the trace for the bubble chart.
     var bubbleData=[{
-      title:{text:"<b>Bacteria Cultures per Sample</b>"},
       x: otu_ids,
       y: sample_values,
       text: otu_labels,
@@ -113,6 +112,7 @@ function buildCharts(sample) {
 
     // Deliverable 2: 2. Create the layout for the bubble chart.
     var bubbleLayout={
+      title:{text:"<b>Bacteria Cultures per Sample</b>"},
       xaxis:{title:"OTU ID"},
       margin:{height:1000,width:1000},
       w:600,

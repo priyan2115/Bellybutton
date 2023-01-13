@@ -62,7 +62,7 @@ function buildCharts(sample) {
     console.log(data);
 
     // Deliverable 1: 3. Create a variable that holds the samples array. 
-    var samples=data.samples;
+    var samples = data.samples;
 
     // Deliverable 1: 4. Create a variable that filters the samples for the object with the desired sample number.
     var filterData=data.samples.filter(x=>x.id==sample);
@@ -97,8 +97,18 @@ function buildCharts(sample) {
       margin:{t:100,l:150},
       paper_bgcolor: '#c9ced1',
       plot_bgcolor: 'white',
-    
-    };
+
+    annotations: [{
+      xref: 'paper',
+      yref: 'paper',
+      x: 0.4,
+      xanchor: 'center',
+      y: -0.25,
+      yanchor: 'center',
+      text: 'The bar chart displays the top 10 bacterial species (OTUs)<br>with the number of samples found in your belly button',
+      showarrow: false
+    }]
+  };
 
     // Deliverable 1: 10. Use Plotly to plot the data with the layout.
     Plotly.newPlot("bar",barData,barLayout);
@@ -109,22 +119,40 @@ function buildCharts(sample) {
       y: sample_values,
       text: otu_labels,
       mode: 'markers',
-      marker:{size:sample_values,color:otu_ids,ColorScale:'jet'}
+      marker:{
+        size:sample_values,
+        color:otu_ids,
+        colorscale:"Rainbow"
+      }
     }];
-
+    console.log(bubbleData);
     // Deliverable 2: 2. Create the layout for the bubble chart.
     var bubbleLayout={
-      title:{text:"<b>Bacteria Cultures per Sample</b>"},
-      xaxis:{title:"OTU ID"},
-      margin:{height:1000,width:1000},
+      title:"<b>Bacteria Cultures per Sample</b>",
+      showlegend:false,
+      xaxis:{title:"OTU ID",automargin:true},
+      yaxis:{title:"Sample Values",automargin:true},
+      hovermode:"closest",
+      //margin:{height:1500,width:1000},
       paper_bgcolor: '#c9ced1',
       plot_bgcolor: 'white',
       w:600,
-      h:1000
+      h:800,
+    
+      annotations: [{
+        xref: 'paper',
+        yref: 'paper',
+        x: 0.5,
+        xanchor: 'center',
+        y: 1.0,
+        yanchor: 'center',
+        text: 'The bubble chart depicts the size proportion of the bacterial species <br> with the number of samples found in your belly button',
+        showarrow: false
+      }]
     };
 
     // Deliverable 2: 3. Use Plotly to plot the data with the layout.
-    Plotly.newPlot("bubble",bubbleData,bubbleLayout)
+    Plotly.newPlot("bubble",bubbleData,bubbleLayout,{responsive:true});
 
     // Deliverable 3: 1. Create a variable that filters the metadata array for the object with the desired sample number.
     var metadata = data.metadata;
@@ -162,10 +190,21 @@ function buildCharts(sample) {
       automargin:true,
       paper_bgcolor: '#c9ced1',
       plot_bgcolor: 'white',
+
+      annotations: [{
+        xref: 'paper',
+        yref: 'paper',
+        x: 0.5,
+        xanchor: 'center',
+        y: 0,
+        yanchor: 'center',
+        text: "The gauge displays your belly button <br>weekly washing frequency",
+        showarrow: false
+      }]
     };
 
     // Deliverable 3: 6. Use Plotly to plot the gauge data and layout.
-    Plotly.newPlot("gauge",gaugeData,gaugeLayout)
+    Plotly.newPlot("gauge",gaugeData,gaugeLayout,{responsive:true});
 
   });
 }
